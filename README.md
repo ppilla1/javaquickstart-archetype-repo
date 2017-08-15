@@ -1,1 +1,0 @@
-# javaquickstart-archetype-repo

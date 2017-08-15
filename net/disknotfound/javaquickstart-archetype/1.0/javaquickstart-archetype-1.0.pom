@@ -1,0 +1,109 @@
+    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+      <modelVersion>4.0.0</modelVersion>
+
+      <groupId>net.disknotfound</groupId>
+      <artifactId>javaquickstart-archetype</artifactId>
+      <version>1.0</version>
+      <packaging>maven-archetype</packaging>
+
+      <name>javaquickstart-archetype</name>
+
+      <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven-compiler-plugin.version>3.6.2</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>2.20</maven-surefire-plugin.version>
+        <maven-archetype-plugin.version>3.0.1</maven-archetype-plugin.version>
+        <maven-release-plugin.version>2.5.2</maven-release-plugin.version>
+        <archetype-packaging.version>3.0.1</archetype-packaging.version>
+        <github-site-plugin.version>0.12</github-site-plugin.version>
+        <java.version>1.8</java.version>
+
+        <github.global.server>github</github.global.server>
+        <github.outputdir>E:/tmp/archetype/</github.outputdir>
+      </properties>
+
+      <distributionManagement>
+        <repository>
+          <id>repo</id>
+          <url>https://github.com/ppilla1/javaquickstart-archetype-repo/raw/master</url>
+        </repository>
+        <snapshotRepository>
+          <id>snapshot-repo</id>
+          <url>https://github.com/ppilla1/javaquickstart-archetype-repo/raw/master</url>
+        </snapshotRepository>
+      </distributionManagement>
+
+      <build>
+        <extensions>
+          <extension>
+            <groupId>org.apache.maven.archetype</groupId>
+            <artifactId>archetype-packaging</artifactId>
+            <version>3.0.1</version>
+          </extension>
+        </extensions>
+
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <artifactId>maven-archetype-plugin</artifactId>
+              <version>3.0.1</version>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-release-plugin</artifactId>
+            <version>${maven-release-plugin.version}</version>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>${maven-compiler-plugin.version}</version>
+            <configuration>
+              <source>${java.version}</source>
+              <target>${java.version}</target>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${maven-surefire-plugin.version}</version>
+            <dependencies>
+              <dependency>
+                <groupId>org.apache.maven.surefire</groupId>
+                <artifactId>surefire-junit47</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+          <plugin>
+            <groupId>com.github.github</groupId>
+            <artifactId>site-maven-plugin</artifactId>
+            <version>${github-site-plugin.version}</version>
+            <configuration>
+              <server>github</server>
+              <outputDirectory>${github.outputdir}</outputDirectory>
+              <includes>
+                <include>**/*</include>
+              </includes>
+              <repositoryOwner>ppilla1</repositoryOwner>
+              <repositoryName>javaquickstart-archetype-repo</repositoryName>
+              <branch>refs/heads/master</branch>
+              <message>Deploy artifacts for ${project.version}</message>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>site</goal>
+                </goals>
+                <phase>deploy</phase>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+
+      <url>http://maven.apache.org</url>
+    </project>
